@@ -13,6 +13,7 @@ spec:
       labels:
         app: postgres
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: postgres
           image: postgres:15.8
@@ -43,6 +44,7 @@ spec:
       labels:
         app: postgres
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: postgres
           image: postgres:15.8
@@ -57,3 +59,25 @@ spec:
                 name: postgres
             - secretRef:
                 name: postgres
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-postgres
+  namespace: auth
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: postgres
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-postgres
+  namespace: application
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: postgres

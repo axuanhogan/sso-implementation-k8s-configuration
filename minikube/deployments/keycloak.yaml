@@ -1,21 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: application
-  name: backend-api
+  namespace: auth
+  name: keycloak
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend-api
+      app: keycloak
   template:
     metadata:
       labels:
-        app: backend-api
+        app: keycloak
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
-        - name: backend-api
-          image: my-backend-api:latest
+        - name: keycloak
+          image: my-keycloak:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -27,27 +28,42 @@ spec:
               cpu: "100m"
           startupProbe:
             httpGet:
-              path: /q/health/started
+              path: /health/started
               port: health-port
               scheme: HTTP
             failureThreshold: 30
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /q/health/ready
+              path: /health/ready
               port: health-port
               scheme: HTTP
             failureThreshold: 2
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /q/health/live
+              path: /health/live
               port: health-port
               scheme: HTTP
             failureThreshold: 2
             periodSeconds: 10
+          args:
+            - start-dev
+            - --features=declarative-ui
+            - --spi-user-provider=jpa-encrypted # https://github.com/MLukman/Keycloak-PII-Data-Encryption-Provider
           envFrom:
             - configMapRef:
-                name: backend-api
+                name: keycloak
             - secretRef:
-                name: backend-api
+                name: keycloak
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-keycloak
+  namespace: auth
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: keycloak
