@@ -66,10 +66,10 @@
 4. Apply `namespace` `secrets` `configmaps` `ingress` yaml files to minikube cluster
 
     ```shell
-    kubectl apply -f local-minikube/namespace.yaml
-    kubectl apply -f local-minikube/secrets/.
-    kubectl apply -f local-minikube/configmaps/.
-    kubectl apply -f local-minikube/ingress.yaml
+    kubectl apply -f minikube/namespace.yaml
+    kubectl apply -f minikube/secrets/.
+    kubectl apply -f minikube/configmaps/.
+    kubectl apply -f minikube/ingress.yaml
     ```
 
 5. Configure the ingress address to your Local hosts（ `/private/etc/hosts` ）
@@ -88,12 +88,12 @@
 6. Apply deployment `postgres` to minikube cluster
 
     ```shell
-    kubectl apply -f local-minikube/deployments/postgres.yaml
+    kubectl apply -f minikube/deployments/postgres.yaml
 
 7. Apply deployment `keycloak` to minikube cluster
 
     ```shell
-    kubectl apply -f local-minikube/deployments/keycloak.yaml
+    kubectl apply -f minikube/deployments/keycloak.yaml
     ```
 
     Keycloak console account and password are both admin (configured in k8s `configmap` yaml).
@@ -125,8 +125,8 @@
 10. Apply deployments `oauth2-proxy` `backend-api` to minikube cluster
 
     ```shell
-    kubectl apply -f local-minikube/deployments/oauth2-proxy.yaml
-    kubectl apply -f local-minikube/deployments/backend-api.yaml
+    kubectl apply -f minikube/deployments/oauth2-proxy.yaml
+    kubectl apply -f minikube/deployments/backend-api.yaml
     ```
 
 11. Enable minikube tunnel
