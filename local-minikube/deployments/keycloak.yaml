@@ -13,6 +13,7 @@ spec:
       labels:
         app: keycloak
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: keycloak
           image: my-keycloak:latest
@@ -55,3 +56,14 @@ spec:
                 name: keycloak
             - secretRef:
                 name: keycloak
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-keycloak
+  namespace: auth
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: keycloak

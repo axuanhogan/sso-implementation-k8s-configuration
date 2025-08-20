@@ -13,6 +13,7 @@ spec:
       labels:
         app: oauth2-proxy
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: oauth2-proxy
           image: quay.io/oauth2-proxy/oauth2-proxy:v7.8.1
@@ -49,3 +50,14 @@ spec:
                 name: oauth2-proxy
             - secretRef:
                 name: oauth2-proxy
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-oauth2-proxy
+  namespace: application
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: oauth2-proxy

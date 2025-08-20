@@ -13,6 +13,7 @@ spec:
       labels:
         app: backend-api
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: backend-api
           image: my-backend-api:latest
@@ -51,3 +52,14 @@ spec:
                 name: backend-api
             - secretRef:
                 name: backend-api
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-backend-api
+  namespace: application
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: backend-api
