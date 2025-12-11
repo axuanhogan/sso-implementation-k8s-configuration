@@ -60,7 +60,7 @@
 
     ```shell
     minikube image load my-keycloak:latest
-    minikube image load my-backend-api:latest
+    minikube image load my-web-api:latest
     ```
 
 4. Apply `namespace` `secrets` `configmaps` `ingress` yaml files to minikube cluster
@@ -75,7 +75,7 @@
 5. Configure the ingress address to your Local hosts（ `/private/etc/hosts` ）
 
     ```shell
-    xxx.xxx.xxx.xxx auth.localhost backend-api.localhost
+    xxx.xxx.xxx.xxx auth.localhost api.localhost
     ```
 
     IP can be viewed from ingress.<br>Although the namespace is different, the IPs will basically be the same group.
@@ -122,11 +122,11 @@
         openssl rand -base64 32 | tr -- '+/' '-_'
         ```
 
-10. Apply deployments `oauth2-proxy` `backend-api` to minikube cluster
+10. Apply deployments `oauth2-proxy` `web-api` to minikube cluster
 
     ```shell
     kubectl apply -f minikube/deployments/oauth2-proxy.yaml
-    kubectl apply -f minikube/deployments/backend-api.yaml
+    kubectl apply -f minikube/deployments/web-api.yaml
     ```
 
 11. Enable minikube tunnel

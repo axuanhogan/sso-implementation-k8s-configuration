@@ -12,4 +12,4 @@ metadata:
   namespace: application
   name: postgres
 data:
-  POSTGRES_DB: backend-api
+  POSTGRES_DB: web-api

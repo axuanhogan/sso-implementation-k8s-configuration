@@ -705,10 +705,10 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "http://backend-api.localhost/oauth2/callback"
+        "http://api.localhost/oauth2/callback"
       ],
       "webOrigins": [
-        "http://backend-api.localhost"
+        "http://api.localhost"
       ],
       "notBefore": 0,
       "bearerOnly": false,
