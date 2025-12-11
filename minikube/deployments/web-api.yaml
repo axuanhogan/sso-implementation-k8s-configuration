@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: application
-  name: backend-api
+  name: web-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend-api
+      app: web-api
   template:
     metadata:
       labels:
-        app: backend-api
+        app: web-api
     spec:
       terminationGracePeriodSeconds: 30
       containers:
-        - name: backend-api
-          image: my-backend-api:latest
+        - name: web-api
+          image: my-web-api:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -49,17 +49,17 @@ spec:
             periodSeconds: 10
           envFrom:
             - configMapRef:
-                name: backend-api
+                name: web-api
             - secretRef:
-                name: backend-api
+                name: web-api
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: pdb-backend-api
+  name: pdb-web-api
   namespace: application
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: backend-api
+      app: web-api
