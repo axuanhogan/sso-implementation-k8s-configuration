@@ -1,3 +1,6 @@
+# Minikube Keycloak SSO Starter
+A complete local Kubernetes authentication stack with Keycloak, OAuth2 Proxy, and custom Web API deployment
+
 # Set up complete services in Local
 ## :exclamation: **Important**
 > In order to facilitate Local development, sensitive information is not encrypted through kubeseal (Sealed Secret). It is necessary to avoid pushing sensitive information to this Repo in clear code.
